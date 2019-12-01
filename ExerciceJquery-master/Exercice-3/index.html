@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Slider</title>
+</head>
+
+<body>
+
+    <div class="slider-inner" id="slider">
+    </div>
+
+    <style>
+        .slider-inner {
+            width: 500px;
+            height: 300px;
+            position: relative;
+            overflow: hidden;
+            float: left;
+            padding: 3px;
+            border: #666 solid 1px;
+        }
+
+        .slider-inner img {
+            display: none;
+            width: 500px;
+            height: 300px;
+        }
+
+        .slider-inner img.active {
+            display: inline-block;
+        }
+
+    </style>
+
+    <script src="https://code.jquery.com/jquery-3.1.1.js" integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA=" crossorigin="anonymous"></script>
+
+    <script src="lib/form-generator-plugin.js"></script>
+    <script>
+        // Run the Plugin
+        $(document).ready(function() {
+            var generateSlide = $('#slider').GenerateSlide({
+                slideRun: [{
+                        type: 'image',
+                        src: 'https://www.cdiscount.com/pdt2/1/2/5/1/180x180/silte125/rw/silverlit-voiture-telecommandee-exost-aqua-cyclone.jpg',
+                        class: 'active'
+                    },
+                    {
+                        type: 'image',
+                        src: 'http://annoncesdumali.com/imagefly/w171-h171-c/images/2018/08/10/2981/thumb_voiture-ford-focus-a-vendre_1.jpg',
+                        class: 'a'
+                    },
+                    {
+                        type: 'image',
+                        src: 'https://www.hellopro.fr/images/produit-3/3/0/1/location-de-voiture-opel-meriva-ref-vh001270-1492103.jpg',
+                        class: ''
+                    }
+                ]
+            });
+        });
+
+    </script>
+
+</body>
+
+</html>

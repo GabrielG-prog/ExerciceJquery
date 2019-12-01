@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Moteur de recherche</title>
+</head>
+
+<body>
+    <div id='google'></div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="lib/form-generator-plugin.js"></script>
+    <script>
+        // Run the Plugin
+        $(document).ready(function() {
+            var searchEngine = $('#google').SearchEngine({
+                firefox: [{
+                    type: 'text',
+                    name: 'recherche',
+                    class: 'text',
+                    id: 'recherche'
+                }],
+                valueFirefox: [{
+                    nom: 'text',
+                    prenom: 'recherche',
+                    poids: 'text',
+                    pokemon: 'recherche',
+                    type: 'text',
+                    name: 'recherche',
+                    calcul: 'text',
+                    id: 'recherche'
+
+                }]
+            });
+        });
+    </script>
+</body></html>
