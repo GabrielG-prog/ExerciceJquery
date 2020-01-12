@@ -1,10 +1,12 @@
 'use strict';
 
 (function ($) {
-    $.fn.SearchEngine = function (options) {
+    $.fn.MySearch = function (options) {
+
         this.settings = $.extend({
+
             'el': $(this) || [],
-            firefox: [],
+            search: [],
         }, options);
 
         var el = this.settings.el;
@@ -13,90 +15,89 @@
         Object.assign(this, {});
 
         Object.assign(prive, {
-            'generate': function (settings) {
-                settings.firefox.forEach(function (value) {
-                    if (value.type == 'text') {
-                        var input = $('<input></input>');
-                        $(input).attr('type', value.type);
-                        $(input).attr('name', value.name);
-                        $(input).attr('class', value.class);
-                        $(input).attr('id', value.id);
-                        var elButon = $('<button>Valider</button>');
-                        $(el).append(input);
-                        $(el).append(elButon);
 
-                        $(elButon).click(function () {
-                            //var valeurRecherche = $(input).val();
-                            this.rechercher(value);
+            'generate': function (settings) {
+
+                var form = $('<form></form>');
+
+                el.append(form);
+
+                settings.search.forEach(function (value) {
+
+                    if (value.type == 'text') {
+
+                        var elInput = $('<input></input>');
+
+                        $(elInput).attr('type', value.type);
+                        $(elInput).attr('id', value.id);
+                        $(elInput).attr('placeholder', value.placeholder);
+
+                        form.append(elInput)
+
+                    }
+
+                    if (value.type == 'submit') {
+
+                        var elSubmit = $('<input/>', {
+                            type: value.type,
+                            id: value.id,
+                            value: value.value
+
+                        });
+
+                        form.append(elSubmit);
+                    }
+
+                });
+
+                function pokeSubmit() {
+                    var param = document.getElementById("pokeInput").value;
+                    var pokeURL = "http://pokeapi.co/api/v1/pokemon/" + param;
+
+                    $.getJSON(pokeURL, function (data) {
+                        console.log(data);
+                        console.log(JSON.stringify(data, null, "  "));
+
+                        var pokeID = data.national_id;
+                        var pokeName = data.name;
+                        var pokeType1 = data.types[0].name;
+                        if (data.types.length == 2) {
+                            var pokeType2 = data.types[1].name;
+                        } else var pokeType2 = null;
+
+                        console.log("Number: ", pokeID);
+                        console.log("Name: ", pokeName);
+                        console.log("Type 1: ", pokeType1);
+                        console.log("Type 2: ", pokeType2);
+
+                    });
+                }
+
+                /*el.autocomplete({
+                    source: function (requete, reponse) { 
+                        
+                        $.ajax({
+                            url: 'http://pokeapi.co/api/v1/pokemon/', 
+                            dataType: 'json', 
+                            data: {
+                                name_startsWith: $('engine').val(),  
+                                maxRows: 15
+                            },
+
+                            success: function (donnee) {
+                                reponse($.map(donnee.geonames, function (objet) {
+                                    return objet.name + ', ' + objet.countryName; // on retourne cette forme de suggestion
+                                }));
+                            }
                         });
                     }
-                });
-            },
-
-            'rechercher': function (chaine) {
-                var trouved = 0;
-
-                chaine = chaine.toUpperCase();
-                var data = new Array();
-                prive.store(data);
-
-                var elHtml = $("<html><head><title>Résultats de la recherche</title></head>");
-                var elBody = $("<body class='article'><div class='alone'>");
-                var elH1 = $("<h1>Résultats de la recherche</h1>");
-
-                for (var i = 0; i < data.length; i++) {
-                    if ((data[i].titre.toUpperCase().indexOf(chaine) != -1) ||
-                        (data[i].keyword.toUpperCase().indexOf(chaine) != -1) ||
-                        (data[i].url.toUpperCase().indexOf(chaine) != -1)) {
-                        data[i].afficher();
-                        trouved++;
-                    }
-                }
-
-                if (!trouved) {
-                    var elPAucune = $("<p style='color: red; font-weight: bold;'>Aucune réponse n'a été trouvée pour ce mot clé dans les pages informatiques de ce site.</p>");
-                }
-
-                var elPreponseTrouve = $("<p style='color: blue; font-weight: bold;'>" + trouved + " réponse(s) trouvée(s) pour le mot-clé " + chaine);
-                var elPForm = $("</p><hr><form><input type='button' value='Nouvelle recherche ?' OnClick='window.location=\"recherche.html\"'></form></div>");
-                $("</body></html>");
-                document.close();
-            },
-
-            'store': function (data) {
-                data[0] = prive.Stock("chat",
-                    "chat",
-                    "https://www.google.com/search?q=chat&oq=chat&aqs=chrome..69i57j69i59l3.718j0j7&sourceid=chrome&ie=UTF-8");
-                data[1] = prive.Stock("chien",
-                    "chien",
-                    "https://www.google.com/search?ei=-w_kXdXnCdPrxgOQ0KCYCA&q=chien&oq=chien&gs_l=psy-ab.3..0i67l9j0.13087.14187..14561...0.2..0.70.306.5......0....1..gws-wiz.......0i71j0i131i67j0i131.uRmDGLNVx3M&ved=0ahUKEwiV0eimk5XmAhXTtXEKHRAoCIMQ4dUDCAs&uact=5");
-                data[2] = prive.Stock("souris",
-                    "souris",
-                    "https://www.google.com/search?ei=CxDkXZWIH9LbgweswojgDQ&q=souris&oq=souris&gs_l=psy-ab.3..0i67j0i131l3j0l2j0i131j0l3.15802.16523..16771...0.3..0.66.360.6......0....1..gws-wiz.......0i71j0i131i67.elMB-lf4_Ko&ved=0ahUKEwjVuc6uk5XmAhXS7eAKHSwhAtwQ4dUDCAs&uact=5");
-                data[3] = prive.Stock("oiseau",
-                    "oiseau",
-                    "https://www.google.com/search?q=oiseau&oq=oiseau&aqs=chrome..69i57.1016j0j9&sourceid=chrome&ie=UTF-8");
-                data[4] = prive.Stock("poisson",
-                    "poisson",
-                    "https://www.google.com/search?q=poisson&oq=poisson&aqs=chrome..69i57.3160j0j9&sourceid=chrome&ie=UTF-8");
-            },
-
-            'Stock': function (titre_in, keyword_in, url_in) {
-                this.titre = titre_in;
-                this.keyword = keyword_in;
-                this.url = url_in;
-                this.afficher = afficher;
-            },
-
-            'afficher': function () {
-                var afficherH3 = $('<h3><a href=' + this.url + '>' + this.titre +
-                    '</a></h3><p class=noindent>' + this.keyword + '<br><a href=' + this.url + '>' + this.url + '</a></p>\n');
+                });*/
             }
 
         });
 
         // Initialise the plugin
-        this.generate(this.settings);
+        prive.generate(this.settings);
 
         return this;
     };

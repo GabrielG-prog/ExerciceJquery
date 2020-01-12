@@ -1,37 +1,45 @@
 <!DOCTYPE html>
+
 <html>
 
-<head>
+    <head>
+
     <title>Moteur de recherche</title>
-</head>
 
-<body>
-    <div id='google'></div>
+    <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/themes/smoothness/jquery-ui.css" />
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="lib/form-generator-plugin.js"></script>
-    <script>
-        // Run the Plugin
-        $(document).ready(function() {
-            var searchEngine = $('#google').SearchEngine({
-                firefox: [{
-                    type: 'text',
-                    name: 'recherche',
-                    class: 'text',
-                    id: 'recherche'
-                }],
-                valueFirefox: [{
-                    nom: 'text',
-                    prenom: 'recherche',
-                    poids: 'text',
-                    pokemon: 'recherche',
-                    type: 'text',
-                    name: 'recherche',
-                    calcul: 'text',
-                    id: 'recherche'
+    </head>
 
-                }]
+    <body>
+
+        <div id="engine"></div>
+
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/jquery-ui.min.js"></script>
+
+        <script src="lib/form-generator-plugin.js"></script>
+
+        <script>
+            // Run the Plugin
+            $(document).ready(function() {
+                var MySearch = $('#engine').MySearch({
+                    search: [{
+                            type: 'text',
+                            id: 'pokeInput',
+                            placeholder: 'Saisissez votre recherche'
+                        },
+                        {
+
+                            'type': 'submit',
+                            'id': 'valid',
+                            'value': 'Valider'
+
+                        }
+                    ]
+                });
             });
-        });
-    </script>
-</body></html>
+        </script>
+        
+    </body>
+    
+</html>
