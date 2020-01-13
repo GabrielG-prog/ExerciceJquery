@@ -30,7 +30,8 @@
                 settings.form.forEach(function (v) {
 
                     if (v.type == 'text') {
-
+                        
+                    // Création des champs de texte du formualire
                         form1.append('<label>' + v.label + '</label>')
                         elDiv = $('<div></div');
 
@@ -41,7 +42,8 @@
                             placeholder: v.placeholder || ''
 
                         });
-
+                        
+                        // Verification des valeurs du formualaires
                         elInput.change(function () {
 
                             if (v.regex) {
@@ -61,7 +63,8 @@
                     }
 
                     if (v.type == 'select') {
-
+                        
+                    // Création d'une liste déroulante
                         form1.append('<label>' + v.label + '</label>')
                         elDiv2 = $('<div></div');
                         elSelect = $('<select selected />');
@@ -81,7 +84,8 @@
                     }
 
                     if (v.type == 'submit') {
-
+                        
+                    // Creation d'un bouton de validation
                         form1.append('<br>');
 
                         elDiv1 = $('<div></div');
@@ -100,6 +104,7 @@
 
                 });
 
+                // Lors du clique sur le bouton on affiche les valeurs du formualaires dans la console
                 var dataForm = [];
                 $('input').blur(function () {
                     dataForm[this.id] = $(this).val();

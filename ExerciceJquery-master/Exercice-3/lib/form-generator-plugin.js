@@ -26,7 +26,7 @@
                 el.append(elUl);
 
                 settings.slide.forEach(function (img) {
-
+                // Creation d'une liste d'image
                     if (img.src) {
 
                         var elLi = $('<li></li>'),
@@ -36,15 +36,18 @@
 
                         elUl.append(elLi);
                         elLi.append(elImage);
-
+                        
+                        
+                        // creation des boutons et du mouvement du slide
                         var carrouselImg = $('#carrousel img'),
-                            indexImg = carrouselImg.length - 1,
+                            indexImg = carrouselImg.length - 1, // on définit l'index du dernier élément
                             i = 0,
-                            currentImg = carrouselImg.eq(i);
+                            currentImg = carrouselImg.eq(i); // on cible l'image courante, qui possède l'index i
 
-                        carrouselImg.css('display', 'none');
-                        currentImg.css('display', 'block');
+                        carrouselImg.css('display', 'none');  // on cache les images
+                        currentImg.css('display', 'block'); // on affiche seulement l'image courante
 
+                        // image suivante
                         $('.next').click(function () {
 
                             i++;
@@ -65,7 +68,7 @@
 
                         });
 
-
+                        // image précédente
                         $('.prev').click(function () {
 
                             i--;
@@ -89,7 +92,8 @@
                     }
 
                 });
-
+                
+                // style du slide
                 el.css({
                     position: 'relative',
                     height: '200px',
