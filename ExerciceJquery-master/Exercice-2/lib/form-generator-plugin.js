@@ -9,8 +9,8 @@
             search: [],
         }, options);
 
-        var el = this.settings.el;
-        var prive = {};
+        var el = this.settings.el,
+            prive = {};
 
         Object.assign(this, {});
 
@@ -18,7 +18,10 @@
 
             'generate': function (settings) {
 
-                var form = $('<form></form>');
+                var elInput,
+                    elSubmit,
+                    listeInput,
+                    form = $('<form></form>');
 
                 el.append(form);
 
@@ -26,11 +29,11 @@
 
                     if (value.type == 'text') {
 
-                        var elInput = $('<input></input>');
-
-                        $(elInput).attr('type', value.type);
-                        $(elInput).attr('id', value.id);
-                        $(elInput).attr('placeholder', value.placeholder);
+                        elInput = $('<input/>', {
+                            type: value.type,
+                            id: value.id,
+                            placeholder: value.placeholder
+                        });
 
                         form.append(elInput)
 
@@ -38,7 +41,7 @@
 
                     if (value.type == 'submit') {
 
-                        var elSubmit = $('<input/>', {
+                        elSubmit = $('<input/>', {
                             type: value.type,
                             id: value.id,
                             value: value.value
@@ -50,48 +53,37 @@
 
                 });
 
-                function pokeSubmit() {
-                    var param = document.getElementById("pokeInput").value;
-                    var pokeURL = "http://pokeapi.co/api/v1/pokemon/" + param;
+                settings.pokemon.forEach(function (poke) {
 
-                    $.getJSON(pokeURL, function (data) {
-                        console.log(data);
-                        console.log(JSON.stringify(data, null, "  "));
+                    elSubmit.click(function (e) {
 
-                        var pokeID = data.national_id;
-                        var pokeName = data.name;
-                        var pokeType1 = data.types[0].name;
-                        if (data.types.length == 2) {
-                            var pokeType2 = data.types[1].name;
-                        } else var pokeType2 = null;
+                        e.preventDefault();
 
-                        console.log("Number: ", pokeID);
-                        console.log("Name: ", pokeName);
-                        console.log("Type 1: ", pokeType1);
-                        console.log("Type 2: ", pokeType2);
+                        if (elInput.val() != "") {
 
-                    });
-                }
+                            if (elInput.val() == poke.name || elInput.val() == poke.id || elInput.val() == poke.type) {
 
-                /*el.autocomplete({
-                    source: function (requete, reponse) { 
-                        
-                        $.ajax({
-                            url: 'http://pokeapi.co/api/v1/pokemon/', 
-                            dataType: 'json', 
-                            data: {
-                                name_startsWith: $('engine').val(),  
-                                maxRows: 15
-                            },
-
-                            success: function (donnee) {
-                                reponse($.map(donnee.geonames, function (objet) {
-                                    return objet.name + ', ' + objet.countryName; // on retourne cette forme de suggestion
-                                }));
+                                el.append('<div><h4>' + poke.name + '</h4><p>' + poke.type + '</p> <img src="' + poke.img + '" /></div>');
                             }
-                        });
-                    }
-                });*/
+
+                        } else {
+
+                            alert("Veuillez inserer un pokemon");
+                        }
+                    });
+
+                    listeInput = [
+                    "bulbizarre",
+                    "salamèche",
+                    "dracaufeu"
+                    ];
+
+                });
+
+                elInput.autocomplete({
+                    source: listeInput
+                });
+
             }
 
         });

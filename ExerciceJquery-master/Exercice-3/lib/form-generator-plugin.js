@@ -10,8 +10,8 @@
             slide: [],
         }, options);
 
-        var el = this.settings.el;
-        var prive = {};
+        var el = this.settings.el,
+            prive = {};
 
         Object.assign(this, {});
 
@@ -19,7 +19,7 @@
 
             'generate': function (settings) {
 
-                el.append('<div class="controls"> <span class="prev">Precedent</span> <span class="next">Suivant</span> </div>');
+                el.before('<div class="controls"> <button class="prev">Precedent</button> <button class="next">Suivant</button> </div>');
 
                 var elUl = $('<ul></ul>');
 
@@ -29,18 +29,18 @@
 
                     if (img.src) {
 
-                        var elLi = $('<li></li>');
-                        var elImage = $('<img>');
-
-                        $(elImage).attr('src', img.src);
+                        var elLi = $('<li></li>'),
+                            elImage = $('<img>', {
+                                src: img.src
+                            });
 
                         elUl.append(elLi);
                         elLi.append(elImage);
 
-                        var carrouselImg = $('#carrousel img');
-                        var indexImg = carrouselImg.length - 1;
-                        var i = 0;
-                        var currentImg = carrouselImg.eq(i);
+                        var carrouselImg = $('#carrousel img'),
+                            indexImg = carrouselImg.length - 1,
+                            i = 0,
+                            currentImg = carrouselImg.eq(i);
 
                         carrouselImg.css('display', 'none');
                         currentImg.css('display', 'block');
@@ -85,34 +85,6 @@
                             }
 
                         });
-
-                        function slideImg() {
-
-                            setTimeout(function () {
-
-                                if (i < indexImg) {
-
-                                    i++;
-
-                                } else {
-
-                                    i = 0;
-
-                                }
-
-                                carrouselImg.css('display', 'none');
-
-                                currentImg = carrouselImg.eq(i);
-
-                                currentImg.css('display', 'block');
-
-                                slideImg();
-
-                            }, 1000);
-
-                        }
-
-                        slideImg(); // enfin, on lance la fonction une première fois
 
                     }
 

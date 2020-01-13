@@ -9,8 +9,8 @@
             form: [],
         }, options);
 
-        var el = this.settings.el;
-        var prive = {};
+        var el = this.settings.el,
+            prive = {};
 
         Object.assign(this, {});
 
@@ -18,14 +18,14 @@
 
             'generate': function (settings) {
 
-                var form1 = el.append('<form></form>');
-                var elDiv;
-                var elInput;
-                var elDiv1;
-                var elInput1;
-                var elDiv2;
-                var elSelect;
-                var regexInput;
+                var form1 = el.append('<form></form>'),
+                    elDiv,
+                    elInput,
+                    elDiv1,
+                    elInput1,
+                    elDiv2,
+                    elSelect,
+                    regexInput;
 
                 settings.form.forEach(function (v) {
 
@@ -42,14 +42,11 @@
 
                         });
 
-                        $(elDiv).append(elInput);
-                        $(form1).append(elDiv);
-
                         elInput.change(function () {
 
                             if (v.regex) {
                                 regexInput = new RegExp(v.regex);
-        
+
                                 if (!regexInput.test(elInput.val())) {
                                     elInput.css('background-color', 'red');
                                 } else {
@@ -57,6 +54,9 @@
                                 }
                             }
                         })
+
+                        $(elDiv).append(elInput);
+                        $(form1).append(elDiv);
 
                     }
 

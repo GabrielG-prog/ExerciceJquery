@@ -2,44 +2,69 @@
 
 <html>
 
-    <head>
-
+<head>
     <title>Moteur de recherche</title>
-
     <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/themes/smoothness/jquery-ui.css" />
+</head>
 
-    </head>
+<body>
 
-    <body>
+    <div id="engine"></div>
 
-        <div id="engine"></div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/jquery-ui.min.js"></script>
 
-        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
-        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/jquery-ui.min.js"></script>
+    <script src="lib/form-generator-plugin.js"></script>
 
-        <script src="lib/form-generator-plugin.js"></script>
-
-        <script>
-            // Run the Plugin
-            $(document).ready(function() {
-                var MySearch = $('#engine').MySearch({
-                    search: [{
-                            type: 'text',
-                            id: 'pokeInput',
-                            placeholder: 'Saisissez votre recherche'
-                        },
-                        {
-
-                            'type': 'submit',
-                            'id': 'valid',
-                            'value': 'Valider'
-
-                        }
-                    ]
-                });
+    <script>
+        // Run the Plugin
+        $(document).ready(function() {
+            var MySearch = $('#engine').MySearch({
+                search: [{
+                        type: 'text',
+                        id: 'pokeInput',
+                        placeholder: 'Saisissez votre recherche'
+                    },
+                    {
+                        'type': 'submit',
+                        'id': 'valid',
+                        'value': 'Valider'
+                    }
+                ],
+                pokemon: [{
+                    'id': 1,
+                    'name': 'bulbizarre',
+                    'type': 'plante',
+                    'poid': '6,9 kg',
+                    'att': '49',
+                    'vit': '45',
+                    'pv': '45',
+                    'def': '49',
+                    'img': 'https://www.pokepedia.fr/images/e/ef/Bulbizarre-RFVF.png'
+                }, {
+                    'id': 2,
+                    'name': 'salamèche',
+                    'type': 'feu',
+                    'poid': '8,5 kg',
+                    'att': '49',
+                    'vit': '45',
+                    'pv': '45',
+                    'def': '49',
+                    'img': 'https://www.pokepedia.fr/images/8/89/Salam%C3%A8che-RFVF.png'
+                }, {
+                    'id': 3,
+                    'name': 'dracaufeu',
+                    'type': 'eau',
+                    'poid': '9,0 kg',
+                    'att': '84',
+                    'vit': '100',
+                    'pv': '78',
+                    'def': '78',
+                    'img': 'https://www.pokepedia.fr/images/1/17/Dracaufeu-RFVF.png'
+                }]
             });
-        </script>
-        
-    </body>
-    
-</html>
+        });
+    </script>
+
+</body></html>
